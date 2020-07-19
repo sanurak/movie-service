@@ -33,7 +33,6 @@ public class MovieService extends BaseService implements IMovieService {
 		if (StringUtils.isEmpty(movieSearch.getSearchBy())) {
 			Response.createError(getMessage(MessageKey.INVALID_SEARCH_TYPE));
 		}
-
 		List<Movie> movieList = new ArrayList<Movie>();
 
 		if (SEARCH_BY_TITLE.equalsIgnoreCase(movieSearch.getSearchBy())) {
@@ -47,7 +46,7 @@ public class MovieService extends BaseService implements IMovieService {
 				movieList = movieRepository.findByTitleEndsWith("(" + movieSearch.getSearchString() + ")");
 
 			} catch (NumberFormatException e) {
-				return Response.createSuccess(movieList,
+				return Response.createError(
 						getMessage(MessageKey.SEARCH_YEAR_NOT_NUMBER, new Object[] { movieSearch.getSearchString() }));
 			}
 
